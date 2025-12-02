@@ -1,26 +1,28 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:riverpod_three/main.dart';
+import 'package:riverpod_three/counter/counter_view.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    // Riverpodを使用するウィジェットをテストする場合、ProviderScopeでラップする必要があります
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          home: CounterView(),
+        ),
+      ),
+    );
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);
 
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // 指定されたKeyを使用してFloatingActionButtonを探し、タップします
+    await tester.tap(find.byKey(const Key('increment_floatingActionButton')));
     await tester.pump();
 
     // Verify that our counter has incremented.
