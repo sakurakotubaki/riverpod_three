@@ -44,3 +44,33 @@ abstract class User with _$User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
 ```
+
+.whenは非推奨なので使用しないでください。switchが推奨です。
+
+```dart
+// body: todosAsync.when(
+      //   data: (todos) => ListView.builder(
+      //     itemCount: todos.length,
+      //     itemBuilder: (context, index) {
+      //       final todo = todos[index];
+      //       return ListTile(
+      //         title: Text(todo.description),
+      //         leading: Checkbox(
+      //           value: todo.completed,
+      //           onChanged: (value) {
+      //             ref.read(todosProvider.notifier).toggle(todo.id);
+      //           },
+      //         ),
+      //         trailing: IconButton(
+      //           icon: const Icon(Icons.delete),
+      //           onPressed: () {
+      //             ref.read(todosProvider.notifier).remove(todo.id);
+      //           },
+      //         ),
+      //       );
+      //     },
+      //   ),
+      //   loading: () => const Center(child: CircularProgressIndicator()),
+      //   error: (error, stack) => Center(child: Text('Error: $error')),
+      // ),
+```

@@ -1,0 +1,154 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'todo.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_Todo _$TodoFromJson(Map<String, dynamic> json) => _Todo(
+  id: (json['id'] as num).toInt(),
+  description: json['description'] as String,
+  completed: json['completed'] as bool,
+);
+
+Map<String, dynamic> _$TodoToJson(_Todo instance) => <String, dynamic>{
+  'id': instance.id,
+  'description': instance.description,
+  'completed': instance.completed,
+};
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(storage)
+const storageProvider = StorageProvider._();
+
+final class StorageProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<JsonSqFliteStorage>,
+          JsonSqFliteStorage,
+          FutureOr<JsonSqFliteStorage>
+        >
+    with
+        $FutureModifier<JsonSqFliteStorage>,
+        $FutureProvider<JsonSqFliteStorage> {
+  const StorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'storageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$storageHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<JsonSqFliteStorage> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<JsonSqFliteStorage> create(Ref ref) {
+    return storage(ref);
+  }
+}
+
+String _$storageHash() => r'c2a3a94599399c893e5a478aee912f80689102a2';
+
+@ProviderFor(TodosNotifier)
+@JsonPersist()
+const todosProvider = TodosNotifierProvider._();
+
+@JsonPersist()
+final class TodosNotifierProvider
+    extends $AsyncNotifierProvider<TodosNotifier, List<Todo>> {
+  const TodosNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'todosProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$todosNotifierHash();
+
+  @$internal
+  @override
+  TodosNotifier create() => TodosNotifier();
+}
+
+String _$todosNotifierHash() => r'0d4a7c933c0814f3e2aeeb61076a75a0a214786a';
+
+@JsonPersist()
+abstract class _$TodosNotifierBase extends $AsyncNotifier<List<Todo>> {
+  FutureOr<List<Todo>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<Todo>>, List<Todo>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<Todo>>, List<Todo>>,
+              AsyncValue<List<Todo>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+// **************************************************************************
+// JsonGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+abstract class _$TodosNotifier extends _$TodosNotifierBase {
+  /// The default key used by [persist].
+  String get key {
+    const resolvedKey = "TodosNotifier";
+    return resolvedKey;
+  }
+
+  /// A variant of [persist], for JSON-specific encoding.
+  ///
+  /// You can override [key] to customize the key used for storage.
+  PersistResult persist(
+    FutureOr<Storage<String, String>> storage, {
+    String? key,
+    String Function(List<Todo> state)? encode,
+    List<Todo> Function(String encoded)? decode,
+    StorageOptions options = const StorageOptions(),
+  }) {
+    return NotifierPersistX(this).persist<String, String>(
+      storage,
+      key: key ?? this.key,
+      encode: encode ?? $jsonCodex.encode,
+      decode:
+          decode ??
+          (encoded) {
+            final e = $jsonCodex.decode(encoded);
+            return (e as List)
+                .map((e) => Todo.fromJson(e as Map<String, Object?>))
+                .toList();
+          },
+      options: options,
+    );
+  }
+}
