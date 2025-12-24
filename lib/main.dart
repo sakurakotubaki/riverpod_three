@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_three/riverpod_sqfilite/todo_view.dart';
+import 'package:riverpod_three/offline/cached_user_view.dart';
 
 sealed class AppError implements Exception {}
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const TotoListView(),
+      home: const CachedUserListView(),
     );
   }
 }
