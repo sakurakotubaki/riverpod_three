@@ -172,7 +172,7 @@ final class UserCacheStateProvider
   }
 }
 
-String _$userCacheStateHash() => r'2729c1ba6fde8a103ca2740b751fd0a93b004f28';
+String _$userCacheStateHash() => r'56b17eff04e374cb911eeb205fdd5d4882de2d50';
 
 // **************************************************************************
 // JsonGenerator
