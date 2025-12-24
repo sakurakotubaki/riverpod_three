@@ -36,30 +36,31 @@ class TodoView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todosAsync = ref.watch(todosProvider);
 
-    return todosAsync.when(
-      data: (todos) => ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (context, index) {
-          final todo = todos[index];
-          return ListTile(
-            title: Text(todo.description),
-            leading: Checkbox(
-              value: todo.completed,
-              onChanged: (v) {
-                ref.read(todosProvider.notifier).toggle(todo.id);
-              },
-            ),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                ref.read(todosProvider.notifier).remove(todo.id);
-              },
-            ),
-          );
-        },
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Center(child: Text('Error: $error')),
-    );
+    // Riverpod 3.0ではwhenは非推奨。switch式を使用
+    return switch (todosAsync) {
+      AsyncData(:final value) => ListView.builder(
+          itemCount: value.length,
+          itemBuilder: (context, index) {
+            final todo = value[index];
+            return ListTile(
+              title: Text(todo.description),
+              leading: Checkbox(
+                value: todo.completed,
+                onChanged: (v) {
+                  ref.read(todosProvider.notifier).toggle(todo.id);
+                },
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  ref.read(todosProvider.notifier).remove(todo.id);
+                },
+              ),
+            );
+          },
+        ),
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+      AsyncError(:final error) => Center(child: Text('Error: $error')),
+    };
   }
 }
